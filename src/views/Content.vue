@@ -6,7 +6,7 @@
           <a class="vote">
             <span class="iconfont icon-up"></span>
           </a>
-          <span class="text">{{ formatNumber(post.vote_) }}</span>
+          <span class="text">{{ formatNumber(post.vote_num) }}</span>
           <a class="vote">
             <span class="iconfont icon-down"></span>
           </a>
@@ -21,7 +21,7 @@
           </div>
         </div>
       </div>
-
+      <!-- 评论相关代码 -->
       <!-- <div class="comment">
         <div class="c-left">
           <div class="line"></div>
@@ -47,7 +47,7 @@
         <h5 class="t-header"></h5>
         <div class="t-info">
           <a class="avatar"></a>
-          <span class="topic-name">b/{{ post.community_name.name }}</span>
+          <span class="topic-name">{{ post.community_name.name }}</span>
         </div>
         <p class="t-desc">树洞 树洞 无限树洞的树洞</p>
         <ul class="t-num">
@@ -60,7 +60,7 @@
             <span class="unit">Members</span>
           </li>
         </ul>
-        <div class="date">Created Apr 10, 2008</div>
+        <div class="date">Created {{ formatDate(post.community_name.create_time) }}</div>
         <button class="topic-btn">JOIN</button>
       </div>
     </div>
@@ -98,6 +98,11 @@ export default {
         return (num / 1000).toFixed(1) + "k";
       }
       return num;
+    },
+    // 格式化时间
+    formatDate(isoTime) {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return new Date(isoTime).toLocaleDateString("en-US", options);
     },
   },
   mounted: function () {
